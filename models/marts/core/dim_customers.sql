@@ -1,23 +1,11 @@
---start of first CTE
 WITH customers AS (
-    SELECT
-        id AS customer_id,
-        first_name,
-        last_name
-    FROM 
-        raw.jaffle_shop.customers
-),--End of first CTE
---start of second CTE
+    SELECT * FROM {{ ref('stg_customers') }}
+),
+
 orders AS (
-    SELECT
-        id AS order_id,
-        user_id AS customer_id,
-        order_date,
-        status
-    FROM
-        raw.jaffle_shop.orders
-),--End of second CTE
---start of third CTE
+    SELECT * FROM {{ ref('stg_orders') }}
+),
+
 customer_orders AS (
     SELECT
         customer_id,
