@@ -16,8 +16,8 @@ customer_orders AS (
     FROM
         orders
     GROUP BY 1
-),--End of third CTE
---start of fourth CTE
+),
+
 final AS (
     SELECT
         customers.customer_id,
@@ -30,6 +30,6 @@ final AS (
         customers
             LEFT JOIN
         customer_orders USING (customer_id)
-)--End of fourth CTE
+)
 
 SELECT * FROM final
