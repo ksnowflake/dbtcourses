@@ -6,6 +6,10 @@ orders AS (
     SELECT * FROM {{ ref('fct_orders') }}
 ),
 
+employees AS (
+    SELECT * FROM {{ ref('employees') }}
+),
+
 customer_orders AS (
     SELECT
         customer_id,
@@ -23,6 +27,7 @@ final AS (
         customers.customer_id,
         customers.first_name,
         customers.last_name,
+        employees.employee_id is not null AS is_employee,
         customer_orders.first_order_date,
         customer_orders.most_recent_order_date,
         coalesce(customer_orders.number_of_orders, 0) AS number_of_orders
@@ -30,6 +35,8 @@ final AS (
         customers
             LEFT JOIN
         customer_orders USING (customer_id)
+            LEFT JOIN
+        employees USING (customer_id)
 )
 
 SELECT * FROM final
