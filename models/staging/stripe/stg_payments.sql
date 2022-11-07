@@ -6,7 +6,7 @@ WITH payments AS (
         status,
 
     -- amount is stored in cents, convert it to dollars
-        amount/100 AS amount,
+        {{ cents_to_dollars('amount') }} AS amount,
         created AS created_at
     FROM 
         {{ source('stripe', 'payment') }}
