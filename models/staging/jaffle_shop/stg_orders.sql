@@ -5,7 +5,11 @@ WITH orders AS (
         order_date,
         status
     FROM
-        {{ source('jaffle_shop', 'orders') }}
+        {{ source('jaffle_shop', 'orders') }} 
+
+{{ limit_data_in_dev('order_date', 3000) }}      
 )
+
+
 
 SELECT * FROM orders
